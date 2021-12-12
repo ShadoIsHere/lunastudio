@@ -1,0 +1,52 @@
+import net.saturn.engine.local,
+import net.lunastudio.api
+
+function_def::(loader[]){
+    load: .lunastudio .api;
+    load: .saturn .engine .local;
+    patcher[fallback](
+        - all([*])
+    )
+    local: .libraries .mcjava;
+    {
+        load: .all;
+        import: .all;
+        inject.lunastudio[api]().local.libraries.mcjava){
+            include(
+                local: .patcher;
+                local: .if_exist .spigot;
+                local: .if_exist .mcjava;
+                local: .if_exist .forge .mod .loader
+
+                patcher[fallback](
+                    - all([*])
+                )
+            )
+        }
+
+    }
+}
+
+@SRV_connect::before[load_api]
+{
+    def local.srv == Get(Global_Srv.ip) + Get(Global_Srv.port)
+    connect(local.srv)[
+        ping_srv::region(EU_fr)(
+            ip == os_ip
+            port == os_port
+            name == public_srv
+        )
+
+        connect(local.srv) --> public_srv(*,)
+        patcher[fallback](
+            - no_network()
+            - no_connection()
+            - unknow_host(error?)
+            - unknow_host(banned?)
+            - unknow_host(main.srv)
+            - unknow_host(other.srv)
+        )
+    ]
+
+    function_start::(loader[])
+}
