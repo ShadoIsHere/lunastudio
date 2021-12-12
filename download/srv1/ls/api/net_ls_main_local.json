@@ -1,0 +1,64 @@
+import net.local.srvjar
+
+@EventKernelLoad
+{
+    load: .saturn .engine;
+    load: .saturn .localpatch;
+    load: .saturn .server;
+    saturn: .kernel .patcher[
+        saturn_kernel[
+            {
+                patch all[files]
+            }
+            datalist.base(load){
+                void: .kernel{
+                    result_fallback::-moz-focus-inner
+                    java_vm::sml(
+                        saturn.mod.loader[import == skript.plugin]{
+                            class.local{
+                                @void_listener[
+                                    plugin.fallback(all)
+                                    kernel.patch[plugin(all*)]
+                                    kernel.load[plugin(all*)]{
+                                        jar_listener(pl)
+                                        import == listener.saturn
+                                        return_pl
+
+                                        @patcher::srv
+                                    }
+                                ]
+                            }
+
+                            class.kernel{
+                                load.saturn.kernel[patch, srv, plugins(*), java_vm, sml](
+                                    @patcher::srv --local[cmd:: apt update --all (saturn.engine)]
+                                )
+                            }
+                            class.engine{
+                                import net.saturn.srv.1a.dl.engine [:default]
+                            }
+
+                            class.client{
+                                import saturn.engine
+
+                                client == player.client(packet.listener)
+
+                                client.dl{
+                                    client[
+                                        dl display: :default;
+                                        dl class: :defined_ressource;
+                                        dl inject: :saturn.engine;
+
+                                        @patcher::client --local[cmd:: os inject minecraft.detect -- all (saturn.engine.client)]
+                                    ]
+                                }
+                            }
+
+                            load class.*(@patcher)
+                        }
+                    )
+                }
+            }
+        ]
+    ]
+}
