@@ -1,0 +1,99 @@
+#![=================================================================================]
+#![                                                                                 ]
+#![                        - Configuration                                          ]
+#![                                                                                 ]
+#![=================================================================================]
+
+
+options:
+
+	#The GUI is the configuration menu for players.
+	galaxyclient.gui: true
+
+	#The Skins API allows players to use Skins from the Galaxy Client.
+	galaxyclient.skinapi: true
+
+	#Galaxy Client Server API allows developers to use features.
+	galaxyclient.api: true
+
+#![=================================================================================]
+#![                                                                                 ]
+#![                        - Loader                                                 ]
+#![                                                                                 ]
+#![=================================================================================]
+
+on load:
+	set {galaxyclient.config.core.error_message} to "&cError executing this feature."
+	send "&9[&bGalaxy&dClient&9] &aGalaxyClientServer core loaded." to console
+
+	wait 1 tick
+	send "&9[&bGalaxy&dClient&9] &fLoading modules..." to console
+	set {_a} to 0
+
+	if {@galaxyclient.gui} is true:
+		send "&9[&bGalaxy&dClient&9] &aGUI module loaded." to console
+		add 1 to {_a}
+	else:
+		send "&9[&bGalaxy&dClient&9] &cGUI module unloaded." to console
+
+	if {@galaxyclient.skinapi} is true:
+		send "&9[&bGalaxy&dClient&9] &aSkin module loaded." to console
+		add 1 to {_a}
+	else:
+		send "&9[&bGalaxy&dClient&9] &cSkin module unloaded." to console
+
+	if {@galaxyclient.api} is true:
+		send "&9[&bGalaxy&dClient&9] &aAPI module loaded." to console
+		add 1 to {_a}
+	else:
+		send "&9[&bGalaxy&dClient&9] &cAPI module unloaded." to console
+
+	wait 2 ticks
+
+	send "&9[&bGalaxy&dClient&9] &f%{_a}%/3 modules loaded." to console
+
+#![=================================================================================]
+#![                                                                                 ]
+#![                        - GUI                                                    ]
+#![                                                                                 ]
+#![=================================================================================]
+
+function galaxyClient_openInv_GUI(p: player):
+	if {@galaxyclient.gui} is true:
+		set {_galaxyclient.player_session.gui.player=%{_p}%} to a new chest inventory with 3 row named "&b&lGalaxy &d&lClient"
+
+		if {galaxyclient.player_data.skin.player=%{_p}%} is not set:	
+			set {galaxyclient.player_data.skin.player=%{_p}%} to false
+
+		if {@galaxyclient.skinapi} is true:
+			if {galaxyclient.player_data.skin.player=%{_p}%} is false:
+				set slot 10 of {_galaxyclient.player_session.gui.player=%{_p}%} to red stained glass pane named "&b&lSkin &c&lFALSE"
+			else:
+				set slot 10 of {_galaxyclient.player_session.gui.player=%{_p}%} to green stained glass pane named "&b&lSkin &a&lTRUE"
+
+		open {_galaxyclient.player_session.gui.player=%{_p}%} to {_p}
+
+on inventory click:
+	if name of event-inventory contains "&b&lGalaxy &d&lClient":
+		cancel event
+		if name of event-item contains "&b&lSkin":
+			if {galaxyclient.player_data.skin.player=%player%} is false:
+				set {galaxyclient.player_data.skin.player=%player%} to true
+				make bungee execute console command "skin set %player% https://client.galaxy-tv.eu/api/skins/%player%"
+				send "&9[&bGalaxy&dClient&9] &fYour Skin is being uploaded, it will soon be applied to your avatar." to player
+				send "&9[&bGalaxy&dClient&9] &7If your Skin is not applied within a minute, check that your nickname is linked to a GalaxyClient account." to player
+			else:
+				set {galaxyclient.player_data.skin.player=%player%} to false
+			close player's inventory
+			galaxyClient_openInv_GUI(player)
+
+command /galaxyclient:
+	aliases: gc
+	trigger:
+		if {@galaxyclient.gui} is true:
+
+			galaxyClient_openInv_GUI(player)
+
+		else:
+			send "&9[&bGalaxy&dClient&9] %{galaxyclient.config.core.error_message}%" to player
+			stop
