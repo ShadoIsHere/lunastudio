@@ -1,0 +1,88 @@
+on join:
+
+	if {userrank.%player%.vip} is not set:
+		set {userrank.%player%.vip} to false
+	if {userrank.%player%.vip+} is not set:
+		set {userrank.%player%.vip+} to false
+	if {userrank.%player%.mvp} is not set:
+		set {userrank.%player%.mvp} to false
+	if {userrank.%player%.mvp+} is not set:
+		set {userrank.%player%.mvp+} to false
+	if {userrank.%player%.astronaut} is not set:
+		set {userrank.%player%.astronaut} to false
+	if {userrank.%player%.streamer} is not set:
+		set {userrank.%player%.streamer} to false
+	if {userrank.%player%.helper} is not set:
+		set {userrank.%player%.helper} to false
+	if {userrank.%player%.moderator} is not set:
+		set {userrank.%player%.moderator} to false
+	if {userrank.%player%.builder} is not set:
+		set {userrank.%player%.builder} to false
+	if {userrank.%player%.developer} is not set:
+		set {userrank.%player%.developer} to false
+	if {userrank.%player%.manager} is not set:
+		set {userrank.%player%.manager} to false
+	if {userrank.%player%.admin} is not set:
+		set {userrank.%player%.admin} to false
+	if {money.%player%} is not set:
+		set {money.%player%} to 0
+	if {lunacoins.%player%} is not set:
+		set {lunacoins.%player%} to 0
+
+command local-userrank <text> <text> <text>:
+	executable by: console
+	trigger:
+		if arg-3 is "true":
+			set {userrank.%arg-2%.%arg-1%} to true
+			send "&fdefine: &e%{userrank.%arg-2%.%arg-1%}%" to console
+		else:
+			set {userrank.%arg-2%.%arg-1%} to false
+			send "&fdefine: &e%{userrank.%arg-2%.%arg-1%}%" to console
+		send "&fSending changes over the network: &enet-userrank &f[%arg-1%]_&e%arg-2%==&e%arg-3%" to console
+		make all servers execute console command "net-userrank vip %arg-2% %{userrank.%arg-2%.vip}%"
+		make all servers execute console command "net-userrank vip+ %arg-2% %{userrank.%arg-2%.vip+}%"
+		make all servers execute console command "net-userrank mvp %arg-2% %{userrank.%arg-2%.mvp}%"
+		make all servers execute console command "net-userrank mvp+ %arg-2% %{userrank.%arg-2%.mvp+}%"
+		make all servers execute console command "net-userrank astronaut %arg-2% %{userrank.%arg-2%.astronaut}%"
+		make all servers execute console command "net-userrank streamer %arg-2% %{userrank.%arg-2%.streamer}%"
+		make all servers execute console command "net-userrank helper %arg-2% %{userrank.%arg-2%.helper}%"
+		make all servers execute console command "net-userrank moderator %arg-2% %{userrank.%arg-2%.moderator}%"
+		make all servers execute console command "net-userrank builder %arg-2% %{userrank.%arg-2%.builder}%"
+		make all servers execute console command "net-userrank developer %arg-2% %{userrank.%arg-2%.developer}%"
+		make all servers execute console command "net-userrank manager %arg-2% %{userrank.%arg-2%.manager}%"
+		make all servers execute console command "net-userrank admin %arg-2% %{userrank.%arg-2%.admin}%"
+		make all servers execute console command "net-money lunacoins %arg-2% %{lunacoins.%arg-2%}%"
+		make all servers execute console command "net-profile id %arg-2% %{lg.userid.%arg-2%}%"
+
+command net-userrank <text> <text> <text>:
+	executable by: console
+	trigger:
+		send "&areceived: &bnet-userrank &f[%arg-1%]_&e%arg-2%==&e%arg-3%" to console
+		if arg-3 is "true":
+			set {userrank.%arg-2%.%arg-1%} to true
+		else:
+			set {userrank.%arg-2%.%arg-1%} to false
+
+command net-profile <text> <text> <text>:
+	executable by: console
+	trigger:
+		send "&areceived: &bnet-profile &f[%arg-1%]_&e%arg-2%==&e%arg-3%" to console
+		if arg-1 is "id":
+			set {lg.userid.%arg-2%} to arg-3
+
+on quit:
+	
+	make all servers execute console command "net-userrank vip %player% %{userrank.%player%.vip}%"
+	make all servers execute console command "net-userrank vip+ %player% %{userrank.%player%.vip+}%"
+	make all servers execute console command "net-userrank mvp %player% %{userrank.%player%.mvp}%"
+	make all servers execute console command "net-userrank mvp+ %player% %{userrank.%player%.mvp+}%"
+	make all servers execute console command "net-userrank astronaut %player% %{userrank.%player%.astronaut}%"
+	make all servers execute console command "net-userrank streamer %player% %{userrank.%player%.streamer}%"
+	make all servers execute console command "net-userrank helper %player% %{userrank.%player%.helper}%"
+	make all servers execute console command "net-userrank moderator %player% %{userrank.%player%.moderator}%"
+	make all servers execute console command "net-userrank builder %player% %{userrank.%player%.builder}%"
+	make all servers execute console command "net-userrank developer %player% %{userrank.%player%.developer}%"
+	make all servers execute console command "net-userrank manager %player% %{userrank.%player%.manager}%"
+	make all servers execute console command "net-userrank admin %player% %{userrank.%player%.admin}%"
+	make all servers execute console command "net-money lunacoins %player% %{lunacoins.%player%}%"
+	make all servers execute console command "net-profile id %player% %{lg.userid.%player%}%"
