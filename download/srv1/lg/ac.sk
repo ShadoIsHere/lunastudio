@@ -1,0 +1,103 @@
+#![=======================================================]
+#![                  : Configuration                      ]
+#![=======================================================]
+
+options:
+	
+	ac.debug: false
+
+#![=======================================================]
+#![                  : Kernel                             ]
+#![=======================================================]
+
+on quit:
+
+	delete {ac.detect.%player%}
+
+on load:
+	send "&b&l[===============================================]" to console
+	send "&b&l[//////////&b&lLuna &f&lGames &eAnti Cheat" to console
+	send "&b&l[////////////&e= &aLoaded" to console
+	send "&b&l[===============================================]" to console
+
+on unload:
+	send "&b&l[===============================================]" to console
+	send "&b&l[//////////&b&lLuna &f&lGames &eAnti Cheat" to console
+	send "&b&l[////////////&e= &cUnloaded" to console
+	send "&b&l[===============================================]" to console
+
+#![=======================================================]
+#![                  : Anti Cheat                         ]
+#![=======================================================]
+
+every 15 ticks:
+	loop all players:
+
+		if {ac.detect.%loop-player%} is not set:
+			set {ac.detect.%loop-player%} to 0
+
+		if {ac.detect.%loop-player%} > 150:
+			kick loop-player due to "§b§lLuna§f§lGames §eAntiCheat §b> §cUnable to synchronize the player."
+
+		if {cps.left.%loop-player%} < 0:
+			set {cps.left.%loop-player%} to 0
+
+		if {cps.right.%loop-player%} < 0:
+			set {cps.right.%loop-player%} to 0
+		
+		if {cps.left.%loop-player%} > 15:
+			send "§b§lLuna§f§lGames §eAntiCheat §b> &cCPS Alert: &4%{cps.left.%loop-player%}%" to loop-player
+			add 1 to {ac.detect.%loop-player%}
+
+		if {cps.right.%loop-player%} > 15:
+			send "§b§lLuna§f§lGames §eAntiCheat §b> &cCPS Alert: &4%{cps.right.%loop-player%}%" to loop-player
+			add 1 to {ac.detect.%loop-player%}
+
+on left click:
+	add 1 to {cps.left.%player%}
+	wait 10 ticks
+	set {cps.left.%player%} to {cps.left.%player%} - 1
+
+on right click:
+	add 1 to {cps.right.%player%}
+	wait 10 ticks
+	set {cps.right.%player%} to {cps.right.%player%} - 1
+
+on damage:
+
+	add 1 to {cps.left.%attacker%}
+	wait 10 ticks
+	set {cps.left.%attacker%} to {cps.left.%attacker%} - 1
+
+on damage:
+
+	if attacker is not a player:
+		stop
+
+	if {cps.left.%attacker%} > 15:
+		add 1 to {ac.detect.%attacker%}
+		cancel event
+		stop
+
+	set {_c} to distance between attacker and victim
+	if {@ac.debug} is true:
+		broadcast "§b§lLuna§f§lGames §eAntiCheat §b> &eREACH: &f%{_c}%"
+
+	if {_c} < 3.4:
+		set {_a} to true
+	else:
+		set {_a} to false
+	if {@ac.debug} is true:
+		broadcast "§b§lLuna§f§lGames §eAntiCheat §b> &eREACH_Debug: &f%{_a}%"
+
+	if {_a} is true:
+		if {@ac.debug} is true:
+			broadcast "&eDAMAGE_Value: &f%{_dmg}%"
+		if {@ac.debug} is true:
+			broadcast "§b§lLuna§f§lGames §eAntiCheat §b> &eDAMAGE_ValuePatched: &f%{_dmg}%"
+		stop
+	else:
+		cancel event
+		if {@ac.debug} is true:
+			broadcast "§b§lLuna§f§lGames §eAntiCheat §b> &eATTACK: &fcancel"
+		add 1 to {ac.detect.%attacker%}
