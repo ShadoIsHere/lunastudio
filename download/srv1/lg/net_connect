@@ -1,0 +1,18 @@
+every 5 seconds:
+	if client is not connected:
+
+		send "&bLuna&fGames &e- &fAttempting to connect to the network ..." to console
+		create new bungee connection:
+			set address of connection to "62.210.130.164"
+			set port of connection to 7002
+			set password of connection to "LunaStudio_proxy*0001/,lg_0"
+		start new connection with connection
+		wait 1 second
+
+		if client is connected:
+			send "&bLuna&fGames &e- &aConnection attempt successful." to console
+		else:
+			send "&bLuna&fGames &e- &cConnection attempt failed." to console
+
+	else:
+		stop
