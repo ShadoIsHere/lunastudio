@@ -1,0 +1,104 @@
+options:
+	
+	lg.network.move_server_cmd: true
+	lg.network.lobby_cmd.ingame_disable: false
+
+on join:
+	delete {_a}
+	loop all bungee players:
+		if "%loop-value%" is "%player%":
+			set {_a} to true
+	if {_a} is true:
+		stop
+	else:
+		kick player due to "LunaGames > Unable to synchronize the player."
+
+every 5 seconds:
+	if client is not connected:
+
+		send "&bLuna&fGames &e- &fAttempting to connect to the network ..." to console
+		create new bungee connection:
+			set address of connection to "62.210.130.164"
+			set port of connection to 7002
+			set password of connection to "LunaGames/_/**proxyNet**-1001/,-lg_0./11"
+		start new connection with connection
+		wait 1 second
+
+		if client is connected:
+			send "&bLuna&fGames &e- &aConnection attempt successful." to console
+		else:
+			send "&bLuna&fGames &e- &cConnection attempt failed." to console
+
+	else:
+		stop
+
+on bungee client disconnect:
+	send "&bLuna&fGames &e- &cServer disconnected from the network." to console
+
+command lg-net <text>:
+
+	usage: &elg-net &f<command>
+	executable by: console
+	trigger:
+
+		if arg-1 is "connect":
+			send "&bLuna&fGames &e- &fAttempting to connect to the network ..." to console
+			create new bungee connection:
+				set address of connection to "62.210.130.164"
+				set port of connection to 7002
+				set password of connection to "LunaGames/_/**proxyNet**-1001/,-lg_0./11"
+			start new connection with connection
+			wait 1 second
+			if client is connected:
+				send "&bLuna&fGames &e- &aConnection attempt successful." to console
+			else:
+				send "&bLuna&fGames &e- &cConnection attempt failed." to console
+
+		if arg-1 is "disconnect":
+			send "&bLuna&fGames &e- &fDisconnecting from the network ..." to console
+			disconnect this client
+
+command /lg-srv <text>:
+	
+	usage: &e/lg-srv &f<server>
+	permission: *
+	executable by: player
+	trigger:
+
+		if {@lg.network.move_server_cmd} is true:
+
+			loop all bungee servers:
+
+				if "%loop-value%" is arg-1:
+
+					set {_found} to true
+					
+			if {_found} is true:
+
+				send "&a&oServer found." to player
+				wait 1 tick
+				send "&7&oTeleport to server ..." to player
+				send bungee player named "%player%" to bungee server named arg-1
+				wait 10 ticks
+				set {_player} to player
+				set {_server} to {_player}'s server
+				wait 1 tick
+				if "%{_server}%" is arg-1:
+					send "&a&oTeleport to server &f%arg-1% &a&osuccessful." to player
+				else:
+					send "&c&oTeleport to server &f%arg-1% &c&ofailed." to player
+
+			else:
+
+				send "&c&oServer not found." to player
+
+		else:
+			send "&rUnknown command." to player
+
+command net-getonline:
+	executable by: console
+	trigger:
+		set {_online} to 0
+		loop all players:
+			add 1 to {_online}
+		make bungee server named "hub" execute console command "net-getonline-receive %{_online}%"
