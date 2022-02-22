@@ -51,7 +51,7 @@ command local-userrank <text> <text> <text>:
 		make all servers execute console command "net-userrank developer %arg-2% %{userrank.%arg-2%.developer}%"
 		make all servers execute console command "net-userrank manager %arg-2% %{userrank.%arg-2%.manager}%"
 		make all servers execute console command "net-userrank admin %arg-2% %{userrank.%arg-2%.admin}%"
-		make all servers execute console command "net-money lunacoins %arg-2% %{lunacoins.%arg-2%}%"
+		make all servers execute console command "net-lunacoins %arg-2% %{lunacoins.%arg-2%}%"
 		make all servers execute console command "net-profile id %arg-2% %{lg.userid.%arg-2%}%"
 
 command net-userrank <text> <text> <text>:
@@ -62,6 +62,12 @@ command net-userrank <text> <text> <text>:
 			set {userrank.%arg-2%.%arg-1%} to true
 		else:
 			set {userrank.%arg-2%.%arg-1%} to false
+
+command net-lunacoins <text> <number>:
+	executable by: console
+	trigger:
+		send "&areceived: &bnet-lunacoins &f[%arg-1%]_&e%arg-2%" to console
+		set {lunacoins.%arg-1%} to arg-2
 
 command net-profile <text> <text> <text>:
 	executable by: console
@@ -84,5 +90,5 @@ on quit:
 	make all servers execute console command "net-userrank developer %player% %{userrank.%player%.developer}%"
 	make all servers execute console command "net-userrank manager %player% %{userrank.%player%.manager}%"
 	make all servers execute console command "net-userrank admin %player% %{userrank.%player%.admin}%"
-	make all servers execute console command "net-money lunacoins %player% %{lunacoins.%player%}%"
+	make all servers execute console command "net-lunacoins %player% %{lunacoins.%player%}%"
 	make all servers execute console command "net-profile id %player% %{lg.userid.%player%}%"
